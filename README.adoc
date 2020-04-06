@@ -46,10 +46,11 @@ http://localhost:30792/whoareyou
 
 == Delete
 
-
+----
 kubectl delete -f src/07.ingress.yaml
 kubectl delete -f src/06.test-application.yaml
 kubectl delete -f src/04.ingress-controller-deployment.yaml
 kubectl delete -f src/03.traefik-cluster-role-binding.yaml
 kubectl delete -f src/02.traefik-cluster-role.yaml
 kubectl delete -f src/01.traefik-service-account.yaml
+----

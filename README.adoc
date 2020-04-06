@@ -19,15 +19,37 @@ Ingress      <-----   Ingress Controller
 
 1. Security
 ----
-kubectl create -f src/01.traefik-service-account.yaml
 kubectl create -f src/02.traefik-cluster-role.yaml
 kubectl create -f src/03.traefik-cluster-role-binding.yaml
+kubectl create -f src/01.traefik-service-account.yaml
 ----
 
 2. Create Ingress Controller that will implement Ingress rules
 
 ----
 kubectl create -f src/04.ingress-controller-deployment.yaml
-kubectl create -f src/04.ingress-controllert-service.yaml
+kubectl create -f src/04.ingress-controller-service.yaml
 ----
 
+Access the Traefik web UI service. 
+kubectl services --> Take the port: localhost:PORT/web
+
+3. Create test apps, service and routes
+
+----
+kubectl create -f src/06.test-application.yaml
+kubectl create -f src/07.ingress.yaml
+----
+
+http://localhost:30792/whoareyou
+
+
+== Delete
+
+
+kubectl delete -f src/07.ingress.yaml
+kubectl delete -f src/06.test-application.yaml
+kubectl delete -f src/04.ingress-controller-deployment.yaml
+kubectl delete -f src/03.traefik-cluster-role-binding.yaml
+kubectl delete -f src/02.traefik-cluster-role.yaml
+kubectl delete -f src/01.traefik-service-account.yaml

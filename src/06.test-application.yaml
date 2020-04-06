@@ -1,0 +1,35 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: default
+  name: whoareyou
+  labels:
+    app: whoareyou
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: whoareyou
+  template:
+    metadata:
+      labels:
+        app: whoareyou
+    spec:
+      containers:
+        - name: whoareyou
+          image: containous/whoami
+          ports:
+            - name: web
+              containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whoareyou-service
+spec:
+  ports:
+  - name: http
+    targetPort: 80
+    port: 80
+  selector:
+    app: whoareyou

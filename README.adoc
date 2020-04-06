@@ -1,0 +1,33 @@
+= TRAEFIK Installation
+
+== Arquitecture
+
+                      =========
+                      Ingress Service: To access from outside
+                      =========
+                        ^
+                        |
+=======               =========
+Ingress      <-----   Ingress Controller
+=======               =========
+                    
+                       ^          ^
+                    Service A    Service B
+
+
+== Installation
+
+1. Security
+----
+kubectl create -f src/01.traefik-service-account.yaml
+kubectl create -f src/02.traefik-cluster-role.yaml
+kubectl create -f src/03.traefik-cluster-role-binding.yaml
+----
+
+2. Create Ingress Controller that will implement Ingress rules
+
+----
+kubectl create -f src/04.ingress-controller-deployment.yaml
+kubectl create -f src/04.ingress-controllert-service.yaml
+----
+
